@@ -1,0 +1,45 @@
+# 配置网关
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-service  #  用户服务转发规则  路由标识 必须唯一
+          uri: lb://user-service  #路由的目标地址
+          predicates: # 路由断言 ， 判断请求是否符合规则
+            - Path=/user/**  # 访问user路径转发用户服务
+        - id: product-service # 商品资源服务转发规则
+          uri: lb://product-service #使用负载均衡,调用服务名,这是服务名
+          predicates:
+            - Path=/product/** # 访问product相关,转发到product服务
+        - id: static-service # 静态资源服务转发规则
+          uri: lb://static-service #使用负载均衡,调用服务名,这是服务名
+          predicates:
+            - Path=/public/** # 访问public相关,转发到public服务
+        - id: carousel-service # 轮播图服务转发规则
+          uri: lb://carousel-service
+          predicates:
+            - Path=/carousel/**
+        - id: category-service  # 类别服务
+          uri: lb://category-service
+          predicates:
+            - Path=/category/**
+        - id: search-service  # 类别服务
+          uri: lb://search-service
+          predicates:
+            - Path=/search/**
+        - id: collect-service  # 收藏服务
+          uri: lb://collect-service
+          predicates:
+            - Path=/collect/**
+        - id: cart-service  # 购物车服务
+          uri: lb://cart-service
+          predicates:
+            - Path=/cart/**
+        - id: order-service  # 订单服务
+          uri: lb://order-service
+          predicates:
+            - Path=/order/**
+        - id: admin-service  # 后台管理服务
+          uri: lb://admin-service
+          predicates:
+            - Path=/admin/**
